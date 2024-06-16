@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+<style type="text/css">
+	.selection-2 {
+		display: block;
+		width: 100%;
+		height: calc(1.5em + .75rem + 2px);
+		padding: .375rem .75rem;
+		font-size: 1rem;
+		font-weight: 400;
+		line-height: 1.5;
+		color: #495057;
+		background-color: #fff;
+		background-clip: padding-box;
+		border: 1px solid #ced4da !important;
+		border-radius: .25rem;
+		transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	}
+</style>
+
+
+<!-- Content page -->
+<section class="bgwhite p-t-55 p-b-65">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
+				<div class="leftbar p-r-20 p-r-0-sm">
+					<!-- Profile Details -->
+					<h4 class="m-text14 p-b-7">
+						User Profile
+					</h4>
+					<ul class="p-b-54">
+						<li class="p-t-4">
+							<strong>Username:</strong> {{ user.username }}
+						</li>
+						<li class="p-t-4">
+							<strong>Email:</strong> {{ user.email }}
+						</li>
+						<li class="p-t-4">
+							<strong>First Name:</strong> {{ user.first_name }}
+						</li>
+						<li class="p-t-4">
+							<strong>Last Name:</strong> {{ user.last_name }}
+						</li>
+					</ul>
+					{% if profile.avatar %}
+						<img src="{{ profile.avatar.url }}" alt="Avatar của {{ user.username }}" class="img-thumbnail">
+					{% endif %}
+				</div>
+			</div>
+
+			<div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
+				<!-- Profile Edit Form -->
+				<div class="flex-sb-m flex-w p-b-35">
+					<form method="post" enctype="multipart/form-data" class="w-100">
+						{% csrf_token %}
+						<div class="form-group">
+							<label for="avatar" class="m-text14 p-b-7">Change Avatar:</label>
+							{% render_field form.avatar class="form-control-file" %}
+						</div>
+						<button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock content %}

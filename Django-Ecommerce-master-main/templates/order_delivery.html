@@ -1,0 +1,57 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Order Delivery Information</h1>
+
+        {% if orders %}
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <!-- <th scope="col">Reference Code</th> -->
+                        <th scope="col">Ordered Date</th>
+                        <!-- <th scope="col">Items</th> -->
+                        <th scope="col">Total</th>
+                        <th scope="col">Being Delivered</th>
+                        <th scope="col">Received</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <!-- <td>{{ order.ref_code }}</td> -->
+                            <td>{{ order.ordered_date }}</td>
+                            <!-- <td>
+                                <ul class="list-unstyled">
+                                    {% for item in order.items.all %}
+                                        <li>{{ item.quantity }} of {{ item.item.title }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td> -->
+                            <td>{{ order.get_total }}</td>
+                            <td>
+                                {% if order.being_delivered %}
+                                    <span class="badge badge-info">Yes</span>
+                                {% else %}
+                                    <span class="badge badge-secondary">No</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if order.received %}
+                                    <span class="badge badge-success">Yes</span>
+                                {% else %}
+                                    <span class="badge badge-secondary">No</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-center">You have no orders.</p>
+        {% endif %}
+    </div>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+{% endblock content %}
